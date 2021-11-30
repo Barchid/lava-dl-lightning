@@ -31,7 +31,7 @@ test_tube_exp/
 tests/tests_tt_dir/
 tests/save_dir
 default/   
-data/
+
 test_tube_logs/
 test_tube_data/
 datasets/
@@ -129,6 +129,13 @@ MNIST
 .DS_Store
 
 
-# random
+# lava download zips
 lava-nc-0.2.0.tar.gz
 lava-dl-0.1.1.tar.gz
+
+# misc
+data/
+!data/.gitkeep
+
+experiments/
+!experiments/.gitkeep
