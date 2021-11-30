@@ -127,3 +127,8 @@ venv.bak/
 lightning_logs/
 MNIST
 .DS_Store
+
+
+# random
+lava-nc-0.2.0.tar.gz
+lava-dl-0.1.1.tar.gz

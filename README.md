@@ -38,15 +38,24 @@ Conference
 What it does   
 
 ## How to run   
-First, install dependencies   
+**Requires Python 3.8+**. First, install dependencies   
 ```bash
 # clone project   
-git clone https://github.com/YourGithubName/deep-learning-project-template
+git clone https://github.com/Barchid/lava-dl-lightning
+cd lava-dl-lightning
 
-# install project   
-cd deep-learning-project-template 
-pip install -e .   
-pip install -r requirements.txt
+# install lava
+wget https://github.com/lava-nc/lava/releases/download/v0.2.0/lava-nc-0.2.0.tar.gz
+pip install -U pip
+pip install lava-nc-0.2.0.tar.gz
+
+# install lava-dl
+wget https://github.com/lava-nc/lava-dl/releases/download/v0.1.1/lava-dl-0.1.1.tar.gz
+pip install lava-dl-0.1.1.tar.gz
+
+# install pytorch-lightning
+pip install pytorch-lightning torchmetrics
+
  ```   
  Next, navigate to any file and run it.   
  ```bash
