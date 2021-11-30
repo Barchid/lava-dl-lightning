@@ -134,8 +134,8 @@ lava-nc-0.2.0.tar.gz
 lava-dl-0.1.1.tar.gz
 
 # misc
-data/
+data/*
 !data/.gitkeep
 
-experiments/
+experiments/*
 !experiments/.gitkeep
