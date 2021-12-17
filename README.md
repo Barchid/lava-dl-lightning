@@ -40,20 +40,34 @@ What it does
 ## How to run   
 **Requires Python 3.8+**. First, install dependencies   
 ```bash
-# clone project   
+# Create environment
+cd ~
+conda create -n lava python=3.8
+conda activate lava
+pip install -U pip
+
+# Install Lava
+git clone git@github.com:lava-nc/lava.git
+cd lava
+pip install -r build-requirements.txt
+pip install -r requirements.txt
+export PYTHONPATH=$(pwd)/src
+ulimit -n 2048 # required or else the pyb command will be stuck
+pyb -E unit
+
+# Install lava-dl
+cd ~
+git clone git@github.com:lava-nc/lava-dl.git
+cd lava-dl
+pip install -r build-requirements.txt
+pip install -r requirements.txt
+export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+pyb -E unit
+
 git clone https://github.com/Barchid/lava-dl-lightning
 cd lava-dl-lightning
 
-# install lava
-wget https://github.com/lava-nc/lava/releases/download/v0.2.0/lava-nc-0.2.0.tar.gz
-pip install -U pip
-pip install lava-nc-0.2.0.tar.gz
-
-# install lava-dl
-wget https://github.com/lava-nc/lava-dl/releases/download/v0.1.1/lava-dl-0.1.1.tar.gz
-pip install lava-dl-0.1.1.tar.gz
-
-# install pytorch-lightning
+# install pytorch-lightning & other useful libs
 pip install pytorch-lightning torchmetrics
 
  ```   
