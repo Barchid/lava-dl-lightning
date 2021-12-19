@@ -4,13 +4,8 @@ from pytorch_lightning.core import datamodule
 
 import torch
 import pytorch_lightning as pl
-from torch.nn import functional as F
-from torch.utils import data
-from torch.utils.data import DataLoader, random_split
 import torchmetrics
 
-from torchvision.datasets.mnist import MNIST
-from torchvision import transforms
 from lava.lib.dl.slayer.classifier import Rate
 from lava.lib.dl.slayer.loss import SpikeMax, SpikeRate
 from project.dataset.nmnist import NMNISTDataModule
