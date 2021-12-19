@@ -19,7 +19,7 @@ from project.models.slayer_nmnist import Network
 
 
 class LitNMNIST(pl.LightningModule):
-    def __init__(self, threshold=1.25, current_decay=0.25, voltage_decay=0.03, tau_grad=0.03, scale_grad=3., dropout=0.05, loss_module="SpikeMax"):
+    def __init__(self, threshold=1.25, current_decay=0.25, voltage_decay=0.03, tau_grad=0.03, scale_grad=3., dropout=0.05, loss_module="SpikeMax", **kwargs):
         super().__init__()
         self.save_hyperparameters()
 
@@ -92,18 +92,18 @@ class LitNMNIST(pl.LightningModule):
         parser.add_argument('--tau_grad', type=float, default=0.03)
         parser.add_argument('--scale_grad', type=float, default=3.)
         parser.add_argument('--dropout', type=float, default=0.05)
-        parser.add_argument('--loss_module', type=str, choices=['SpikeRate', 'SpikeMax'], default="SpikeMax",
+        parser.add_argument('--loss_module', choices=['SpikeRate', 'SpikeMax'], default="SpikeMax",
                             help="Type of criterion that will be used to optimize the SNN.")
         return parser
 
 
 def program_args():
     parser = ArgumentParser()
-    parser.add_argument('--mode', type="str", default="train",
+    parser.add_argument('--mode', default="train",
                         choices=["train", "test", "lr_find"], help="Mode to run the program. Can be train, test or lr_finder.")
-    parser.add_argument('--data_dir', default='data/nmnist', type=str, help="Location of the dataset to train")
+    parser.add_argument('--data_dir', default='data/nmnist', help="Location of the dataset to train")
     parser.add_argument('--batch_size', default=32, type=int)
-    parser.add_argument('--ckpt_path', type=str, default=None,
+    parser.add_argument('--ckpt_path', default=None,
                         help="Path of a checkpoint file. Defaults to None, meaning the training/testing will start from scratch.")
     return parser
 
