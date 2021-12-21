@@ -72,7 +72,8 @@ class LitPilotNet(pl.LightningModule):
         parser.add_argument('--tau_grad', type=float, default=0.5)
         parser.add_argument('--scale_grad', type=float, default=1.)
         parser.add_argument('--dropout', type=float, default=0.2)
-        parser.add_argument('--lam', type=float, default=None, help="Lagrangian needed for the sparsity loss")
+        parser.add_argument('--lam', type=float, default=None,
+                            help="Lagrangian needed for the sparsity loss. If None, there is no sparsity loss (of course...)")
         return parser
 
 
