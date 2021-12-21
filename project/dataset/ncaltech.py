@@ -51,10 +51,13 @@ class NCALTECH101(Dataset):
     dtype = np.dtype([("x", int), ("y", int), ("t", int), ("p", int)])
     ordering = dtype.names
 
-    def __init__(self, save_to, transform=None, target_transform=None):
+    def __init__(self, save_to, transform=None, target_transform=None, height=224, width=224, timesteps=16):
         super(NCALTECH101, self).__init__(
             save_to, transform=transform, target_transform=target_transform
         )
+        self.width = width
+        self.height = height
+        self.timesteps = timesteps
 
         if not self._check_exists():
             self.download()
@@ -115,9 +118,9 @@ class NCALTECH101(Dataset):
         if self.target_transform is not None:
             target = self.target_transform(target)
 
-        frames = TF.to_frame_numpy(events, [events["x"].max() + 1, events["y"].max() + 1, 2], n_time_bins=100)
+        frames = TF.to_frame_numpy(events, [events["x"].max() + 1, events["y"].max() + 1, 2], n_time_bins=self.timesteps)
         frames = np.clip(frames, 0, 1).astype(np.float32)
-        frames = F.upsample(torch.from_numpy(frames), size=(224, 224), mode='nearest')
+        frames = F.upsample(torch.from_numpy(frames), size=(self.height, self.width), mode='nearest')
         # print(frames.shape)
 
         return frames, bbox, target
