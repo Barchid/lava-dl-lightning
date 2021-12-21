@@ -13,10 +13,6 @@ import random
 import matplotlib.pyplot as plt
 
 
-def listdir_fullpath(d):
-    return [os.path.join(d, f) for f in os.listdir(d)]
-
-
 class NCALTECH101(Dataset):
     """N-CALTECH101 dataset <https://www.garrickorchard.com/datasets/n-caltech101>. Events have (xytp) ordering.
     ::
