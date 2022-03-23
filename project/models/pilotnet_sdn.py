@@ -1,11 +1,8 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
-import torch.optim as optim
 
 import matplotlib.pyplot as plt
 import lava.lib.dl.slayer as slayer
-import h5py
 
 
 def event_rate_loss(x, max_rate=0.01):
@@ -57,17 +54,9 @@ class Network(torch.nn.Module):
         ])
 
     def forward(self, x):
-        count = []
-        event_cost = 0 # for lam sparsity loss
-
         for block in self.blocks:
-            # forward computation is as simple as calling the blocks in a loop
             x = block(x)
-            if hasattr(block, 'neuron'):
-                event_cost += event_rate_loss(x)
-                count.append(torch.sum(torch.abs((x[..., 1:]) > 0).to(x.dtype)).item())
-
-        return x, event_cost, torch.FloatTensor(count).reshape((1, -1)).to(x.device)
+        return x
 
     def grad_flow(self, path):
         # helps monitor the gradient flow
@@ -79,10 +68,3 @@ class Network(torch.nn.Module):
         plt.close()
 
         return grad
-
-    def export_hdf5(self, filename):
-        # network export to hdf5 format
-        h = h5py.File(filename, 'w')
-        layer = h.create_group('layer')
-        for i, b in enumerate(self.blocks):
-            b.export_hdf5(layer.create_group(f'{i}'))
