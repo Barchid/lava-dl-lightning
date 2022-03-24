@@ -5,6 +5,7 @@ from project.dataset.pilotnet import PilotNetDataModule
 from project.models.pilotnet_sdn import Network
 import os
 import torch.nn.functional as F
+from torchvision import transforms
 
 
 def program_args():
@@ -45,7 +46,17 @@ def cli_main():
     # data
     # ------------
     datamodule = PilotNetDataModule(
-        **dict_args
+        train_transforms=transforms.Compose([
+            transforms.Resize([33, 100]),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+        ]),
+        val_transforms=transforms.Compose([
+            transforms.Resize([33, 100]),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+        ]),
+        **dict_args,
     )
 
     # ------------

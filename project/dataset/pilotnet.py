@@ -165,7 +165,6 @@ class PilotNetDataset(Dataset):
             if self.transform is not None:
                 image = self.transform(image)
             images.append(image)
-            print(image.dtype)
             gts.append(torch.tensor(gt_val, dtype=image.dtype))
 
         images = torch.stack(images, dim=3)
