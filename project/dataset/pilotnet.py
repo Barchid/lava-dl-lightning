@@ -87,7 +87,7 @@ class PilotNetDataset(Dataset):
 
         # check if dataset is available in path. If not download it
         if len(glob.glob(self.path)) == 0:
-            if download is True:
+            if download is True and not len(glob.glob(os.path.join(self.path, "driving_dataset.zip"))):
                 os.makedirs(path, exist_ok=True)
 
                 print('Dataset not available locally. Starting download ...')
