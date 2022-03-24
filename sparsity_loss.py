@@ -11,7 +11,7 @@ def event_rate_loss(x, max_rate=0.01):
 
 class Sparsity(object):
 
-    def __init__(self, net: nn.Module, cost_function: function = event_rate_loss) -> None:
+    def __init__(self, net: nn.Module, cost_function = event_rate_loss) -> None:
         if not hasattr(net, 'blocks'):
             raise ValueError('Network module has not "blocks" attribute. Cannot use Sparsity Loss.')
 
