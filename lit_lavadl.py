@@ -29,7 +29,7 @@ class LitLavaDL(pl.LightningModule):
         self.event_counter = EventCounter(self.net) if count_log else None
 
     def forward(self, x):
-        events = self.model(x)
+        events = self.net(x)
 
         if self.classifier is not None:
             classifications = self.classifier(events)
