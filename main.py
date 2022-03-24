@@ -23,8 +23,8 @@ def create_module(dict_args) -> LitLavaDL:
     net = Network()
     module = LitLavaDL(
         net,
-        error=lambda output, target: F.mse_loss(output.flatten(), target.flatten()) **
-        dict_args
+        error=lambda output, target: F.mse_loss(output.flatten(), target.flatten()),
+        **dict_args
     )
 
     return module
