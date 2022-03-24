@@ -22,8 +22,8 @@ def create_module(dict_args) -> LitLavaDL:
     net = Network()
     module = LitLavaDL(
         net,
-        error=lambda output, target: F.mse_loss(output.flatten(), target.flatten())
-        **dict_args
+        error=lambda output, target: F.mse_loss(output.flatten(), target.flatten()) **
+        dict_args
     )
 
     return module
@@ -56,13 +56,18 @@ def cli_main():
     # ------------
     # trainer
     # ------------
+    logger = pl.loggers.TensorBoardLogger(
+        os.path.join(args.default_root_dir, 'logs'),
+        name="logger"
+    )
+
     checkpoint_callback = pl.callbacks.ModelCheckpoint(
         monitor="val_acc",  # TODO: select the logged metric to monitor the checkpoint saving
-        filename="model-{epoch:03d}-{val_acc:.4f}",
+        filename="model-{epoch:03d}-{val_total_loss:.4f}",
         save_top_k=1,
-        mode="max",
+        mode="min",
     )
-    trainer = pl.Trainer.from_argparse_args(args, callbacks=[checkpoint_callback])
+    trainer = pl.Trainer.from_argparse_args(args, callbacks=[checkpoint_callback], logger=logger)
 
     # ------------
     # launch experiment
