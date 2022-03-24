@@ -17,7 +17,7 @@ class LitLavaDL(pl.LightningModule):
     This can replace the default utils.Assistant from lava-dl.
     """
 
-    def __init__(self, net: nn.Module, error, classifier=None, learning_rate: float = 0.001, lam: float = 0.3, count_log: bool = False, **kwargs):
+    def __init__(self, net: nn.Module, error, classifier=None, learning_rate: float = 0.01, lam: float = 0.3, count_log: bool = False, **kwargs):
         super().__init__()
         self.save_hyperparameters(ignore=['net', 'error', 'classifier', 'count_log'])
 
