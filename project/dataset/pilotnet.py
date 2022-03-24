@@ -80,7 +80,7 @@ class PilotNetDataset(Dataset):
         self.path = path + '/driving_dataset/'
 
         id = '1Ue4XohCOV5YXy57S_5tDfCVqzLr101M7'
-        dataset_link = 'https://docs.google.com/uc?export=download&id={id}'
+        dataset_link = f'https://docs.google.com/uc?export=download&id={id}'
         download_msg = f'''Please download dataset form \n{dataset_link}')
         and copy driving_dataset.zip to {path}/
         Note: create the folder if it does not exist.'''.replace(' ' * 8, '')
