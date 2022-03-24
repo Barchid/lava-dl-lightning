@@ -51,7 +51,7 @@ def cli_main():
     # ------------
     # pytorch-lightning module
     # ------------
-    module = LitLavaDL()
+    module = create_module(dict_args)
 
     # ------------
     # trainer
