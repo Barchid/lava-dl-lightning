@@ -13,9 +13,9 @@ from torchvision import transforms
 
 
 class PilotNetDataModule(LightningDataModule):
-    def __init__(self, path: str = "data", batch_size: int = 8, sequence: int = 16, train_transforms=None, val_transforms=None, **kwargs):
+    def __init__(self, data_dir: str = "data", batch_size: int = 8, sequence: int = 16, train_transforms=None, val_transforms=None, **kwargs):
         super().__init__()
-        self.path = path
+        self.path = data_dir
         self.batch_size = batch_size
         self.sequence = sequence
 
