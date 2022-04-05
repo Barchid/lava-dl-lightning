@@ -189,9 +189,7 @@ class Network(torch.nn.Module):
         for block in self.blocks:
             spike = block(spike)
             count.append(torch.mean(spike).item())
-        return spike, torch.FloatTensor(count).reshape(
-            (1, -1)
-        ).to(spike.device)
+        return spike
 
     def grad_flow(self, path):
         # helps monitor the gradient flow

@@ -1,8 +1,7 @@
 from argparse import ArgumentParser
 from lit_lavadl import LitLavaDL
 import pytorch_lightning as pl
-from project.dataset.nmnist import NMNISTDataset, augment
-from project.models.pilotnet_sdn import Network
+from project.dataset.nmnist import NMNISTDataset, augment, Network
 import os
 import torch.nn.functional as F
 from torchvision import transforms
