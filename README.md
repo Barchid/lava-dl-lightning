@@ -110,3 +110,29 @@ trainer.test(test_dataloaders=test)
   year={Year}
 }
 ```   
+
+
+### Plan
+- Prints SDN to know about the input/output tensors
+- Make nmnist work + prints to know about
+  - Print after Spike classifiers #!important
+- DVSGesture Datamodule
+  - Transforms
+  - Tonic
+- Model Slayer
+- Lightning Module
+- Make it run
+- Make Notebook
+
+
+### Barlow Twins
+- DataModule + transforms (simple)
+- Model
+- How to get good representation ?
+  - Rate of spikes ?
+  - SpikeMax ?
+  - Latency ?
+  - Mean over output spike trains ?
+  - ANN projector ?
+- Launch
+
