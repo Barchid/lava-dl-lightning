@@ -49,8 +49,8 @@ def cli_main():
     # ------------
     # data
     # ------------
-    train_set = NMNISTDataset(path='data', train=True, sampling_time=args.sample_time, transform=augment)
-    val_set = NMNISTDataset(path='data', train=False, sampling_time=args.sample_time)
+    train_set = NMNISTDataset(path='data', train=True, sampling_time=args.sampling_time, transform=augment)
+    val_set = NMNISTDataset(path='data', train=False, sampling_time=args.sampling_time)
     train_loader = DataLoader(dataset=train_set, batch_size=args.batch_size, shuffle=True)
     val_loader  = DataLoader(dataset=val_set , batch_size=args.batch_size, shuffle=True)
 
