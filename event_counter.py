@@ -25,8 +25,7 @@ class EventCounter(object):
 
     def hook_get_events(self, layer, input, output):
         events = output.clone().detach().cpu()  # put the events tensor in CPU to avoid VRAM consumption
-        print(events[..., 1:].shape)
-        self.count.append(torch.sum(((events[..., 1:]) > 0).to(events.dtype)).item())
+        self.count.append(torch.sum((events[..., 1:] > 0).to(events.dtype)).item()) # ignore first timestep
 
     def compute_count_forward(self, input):
         result = self.count
@@ -34,12 +33,11 @@ class EventCounter(object):
         count = torch.FloatTensor(result).reshape((1, -1))  # per-layer total sum of events
         count = (count.flatten() / (input.shape[-1] - 1) / input.shape[0]).tolist()  # count skips first events
         self.total_counts.append(count)
-        print(count)
 
     def get_ops_comparison(self):
         result = self.total_counts
         self.total_counts = []  # reset for another epoch
-        counts = np.mean(counts, axis=0)  # mean over all counts
+        counts = np.mean(result, axis=0)  # mean over all counts
         
         return self.compare_ops(counts)
         
