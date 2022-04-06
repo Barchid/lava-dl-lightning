@@ -53,10 +53,8 @@ class LitLavaDL(pl.LightningModule):
             self.log('train_total_loss', loss, on_epoch=True)
 
         if self.event_counter is not None:
-            count = self.event_counter.get_count(x)
-            print(count.shape, count)
-            exit()
-            self.log('train_count', count, on_epoch=True)
+            self.event_counter.compute_count_forward(x)
+            # self.log('train_count', count, on_epoch=True)
 
         if classifications is not None:
             acc = torchmetrics.functional.accuracy(classifications, y)
@@ -79,10 +77,8 @@ class LitLavaDL(pl.LightningModule):
             self.log('val_total_loss', loss, on_epoch=True)
 
         if self.event_counter is not None:
-            count = self.event_counter.get_count(x)
-            print(count.shape, count)
-            exit()
-            self.log('val_count', count, on_epoch=True)
+            self.event_counter.compute_count_forward(x)
+            # self.log('val_count', count, on_epoch=True)
 
         if classifications is not None:
             acc = torchmetrics.functional.accuracy(classifications, y)
@@ -103,9 +99,7 @@ class LitLavaDL(pl.LightningModule):
             self.log('test_total_loss', loss, on_epoch=True)
 
         if self.event_counter is not None:
-            count = self.event_counter.get_count(x)
-            print(count.shape, count)
-            exit()
+            self.event_counter.compute_count_forward(x)
             self.log('test_count', count, on_epoch=True)
 
         if classifications is not None:
