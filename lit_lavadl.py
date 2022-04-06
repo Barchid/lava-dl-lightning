@@ -43,21 +43,21 @@ class LitLavaDL(pl.LightningModule):
         events, classifications = self(x)
 
         loss = self.error(events, y)
-        self.log('train_loss', loss, on_epoch=True)
+        self.log('train_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
 
         if self.sparsity is not None:
             sparsity_loss = self.sparsity.get_sparsity_loss()
-            self.log('train_sparsity_loss', sparsity_loss, on_epoch=True, prog_bar=True)
+            self.log('train_sparsity_loss', sparsity_loss, on_step=False, on_epoch=True, prog_bar=True)
 
             loss += sparsity_loss
-            self.log('train_total_loss', loss, on_epoch=True, prog_bar=True)
+            self.log('train_total_loss', loss, on_epoch=True, on_step=False, prog_bar=True)
 
         if self.event_counter is not None:
             self.event_counter.compute_count_forward(x)
 
         if classifications is not None:
             acc = torchmetrics.functional.accuracy(classifications, y)
-            self.log('train_acc', acc, on_epoch=True, prog_bar=True)
+            self.log('train_acc', acc, on_epoch=True, on_step=False, prog_bar=True)
 
         return loss
 
@@ -66,42 +66,42 @@ class LitLavaDL(pl.LightningModule):
         events, classifications = self(x)
 
         loss = self.error(events, y)
-        self.log('val_loss', loss, on_epoch=True, prog_bar=True)
+        self.log('val_loss', loss, on_epoch=True, on_step=False, prog_bar=True)
 
         if self.sparsity is not None:
             sparsity_loss = self.sparsity.get_sparsity_loss()
-            self.log('val_sparsity_loss', sparsity_loss, on_epoch=True, prog_bar=True)
+            self.log('val_sparsity_loss', sparsity_loss, on_step=False, on_epoch=True, prog_bar=True)
 
             loss += self.lam * sparsity_loss
-            self.log('val_total_loss', loss, on_epoch=True, prog_bar=True)
+            self.log('val_total_loss', loss, on_epoch=True, on_step=False, prog_bar=True)
 
         if self.event_counter is not None:
             self.event_counter.compute_count_forward(x)
 
         if classifications is not None:
             acc = torchmetrics.functional.accuracy(classifications, y)
-            self.log('val_acc', acc, on_epoch=True, prog_bar=True)
+            self.log('val_acc', acc, on_epoch=True, on_step=False, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
         x, y = batch
         events, classifications = self(x)
 
         loss = self.error(events, y)
-        self.log('test_loss', loss, on_epoch=True, prog_bar=True)
+        self.log('test_loss', loss, on_epoch=True, on_step=False, prog_bar=True)
 
         if self.sparsity is not None:
             sparsity_loss = self.sparsity.get_sparsity_loss()
-            self.log('test_sparsity_loss', sparsity_loss, on_epoch=True, prog_bar=True)
+            self.log('test_sparsity_loss', sparsity_loss, on_epoch=True, on_step=False, prog_bar=True)
 
             loss += sparsity_loss
-            self.log('test_total_loss', loss, on_epoch=True, prog_bar=True)
+            self.log('test_total_loss', loss, on_epoch=True, on_step=False, prog_bar=True)
 
         if self.event_counter is not None:
             self.event_counter.compute_count_forward(x)
 
         if classifications is not None:
             acc = torchmetrics.functional.accuracy(classifications, y)
-            self.log('test_acc', acc, on_epoch=True, prog_bar=True)
+            self.log('test_acc', acc, on_epoch=True, on_step=False, prog_bar=True)
 
     def on_train_epoch_end(self):
         self.count_log_report('train')
@@ -115,10 +115,10 @@ class LitLavaDL(pl.LightningModule):
     def count_log_report(self, mode="train"):
         if self.event_counter is not None:
             stats = self.event_counter.get_ops_comparison()
-            self.log(f"{mode}_total_events", stats['total_events'], prog_bar=True, on_epoch=True)
-            self.log(f"{mode}_event_sparsity", stats['event_sparsity'], prog_bar=True, on_epoch=True)
-            self.log(f"{mode}_synops_sparsity", stats['synops_sparsity'], prog_bar=True, on_epoch=True)
-            self.log(f"{mode}_total_neurons", stats['total_neurons'], prog_bar=True, on_epoch=True)
+            self.log(f"{mode}_total_events", stats['total_events'], prog_bar=True, on_step=False, on_epoch=True)
+            self.log(f"{mode}_event_sparsity", stats['event_sparsity'], prog_bar=True, on_step=False, on_epoch=True)
+            self.log(f"{mode}_synops_sparsity", stats['synops_sparsity'], prog_bar=True, on_step=False, on_epoch=True)
+            self.log(f"{mode}_total_neurons", stats['total_neurons'], prog_bar=True, on_step=False, on_epoch=True)
 
     def export_hdf5(self, filename: str):
         """Exports the network model to hdf5 format.
