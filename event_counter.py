@@ -43,7 +43,8 @@ class EventCounter(object):
         
 
     def compare_ops(self, counts):
-        print(counts)
+        print(counts[0])
+        print(self.net.blocks[0])
         shapes = [b.shape for b in self.net.blocks if hasattr(b, 'neuron')]
 
         # synops calculation
