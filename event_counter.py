@@ -42,10 +42,9 @@ class EventCounter(object):
         return self.compare_ops(counts)
         
     def compare_ops(self, counts):
-        import traceback
-        import sys
-        traceback.print_stack(file=sys.stdout)
-        print(counts[0])
+        print('\n\n\n')
+        print(counts, self.total_counts)
+        
         print(self.net.blocks[0])
         shapes = [b.shape for b in self.net.blocks if hasattr(b, 'neuron')]
 
