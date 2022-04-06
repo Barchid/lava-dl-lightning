@@ -25,7 +25,8 @@ class EventCounter(object):
 
     def hook_get_events(self, layer, input, output):
         events = output.clone().detach().cpu()  # put the events tensor in CPU to avoid VRAM consumption
-        self.count.append(torch.sum(torch.abs((events[..., 1:]) > 0).to(events.dtype)).item())
+        print(events[..., 1:].shape)
+        self.count.append(torch.sum(((events[..., 1:]) > 0).to(events.dtype)).item())
 
     def compute_count_forward(self, input):
         result = self.count
